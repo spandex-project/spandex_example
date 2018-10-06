@@ -26,7 +26,10 @@ defmodule PlugGateway.MixProject do
       {:distillery, "~> 2.0"},
       {:httpoison, "~> 1.3"},
       {:jason, "~> 1.1"},
-      {:plug, "~> 1.6"}
+      {:plug, "~> 1.6"},
+      {:spandex, "~> 2.3"},
+      {:spandex_datadog, "~> 0.3"},
+      {:spandex_phoenix, "~> 0.2"},
     ]
   end
 end

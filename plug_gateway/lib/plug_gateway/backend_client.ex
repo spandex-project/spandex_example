@@ -1,7 +1,11 @@
 defmodule PlugGateway.BackendClient do
 
+  alias PlugGateway.Tracer
+
   def get(url, opts \\ []) do
-    headers = [{"authorization", "Bearer #{token()}"}]
+    headers =
+      [{"authorization", "Bearer #{token()}"}]
+      |> Tracer.inject_context()
 
     url
     |> HTTPoison.get(headers)

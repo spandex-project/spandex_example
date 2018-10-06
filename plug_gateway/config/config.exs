@@ -21,6 +21,14 @@ use Mix.Config
 #     config :logger, level: :info
 #
 
+config :logger,
+  level: :debug,
+  utc_log: true
+
+config :logger, :console,
+  format: "$dateT$time [$level]$levelpad $metadata $message\n",
+  level: :debug
+
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
 # by uncommenting the line below and defining dev.exs, test.exs and such.

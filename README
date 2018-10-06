@@ -1,6 +1,0 @@
-# Spandex Example Projects
-
-The purpose of this repo is to demonstrate how to integrate Spandex into a
-variety of application scenarios you might see in real life. It also gives us a
-way to easily validate that the right trace and span data is getting sent to
-the supported back-ends.

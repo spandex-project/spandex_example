@@ -12,15 +12,23 @@ config :phoenix_backend,
 # Configures the endpoint
 config :phoenix_backend, PhoenixBackendWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "J65s1uZmkX7fCuupiOXZBn3CbE67WcfpJ9nC3JETqIgwdaXIUGs9YnSVQtsZT8qw",
   render_errors: [view: PhoenixBackendWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: PhoenixBackend.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
+config :logger,
+  level: :debug,
+  utc_log: true
+
 config :logger, :console,
-  format: "$time $metadata[$level] $message\n",
+  format: "$dateT$time [$level]$levelpad $metadata $message\n",
+  level: :debug,
   metadata: [:user_id]
+
+# Configure your database
+config :phoenix_backend, PhoenixBackend.Repo,
+  adapter: Ecto.Adapters.Postgres
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

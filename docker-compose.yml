@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+  ecto_setup:
+    build:
+      context: phoenix_backend
+      dockerfile: Dockerfile-mix
+    command: sh -c "sleep 2 && mix ecto.setup"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/phoenix_backend
+      DB_HOST: postgres
+
+  gateway:
+    build: plug_gateway
+    depends_on:
+      - backend
+      - datadog
+    environment:
+      PORT: 80
+      TRACING_HOST: datadog
+      TRACING_PORT: 8126
+      TRACING_BATCH_SIZE: 1
+      TRACING_SYNC_THRESHOLD: 10
+    ports:
+      - "4000:80"
+
+  backend:
+    build: phoenix_backend
+    depends_on:
+      - ecto_setup
+      - postgres
+      - datadog
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/phoenix_backend
+      PHOENIX_SECRET: "Rma2sZ47QkgKN5hkDjvGSMDhqqOg/olFEs9qMtexSf+UJk0+0n7vA6SAOHBZTaId"
+      PORT: 80
+      TRACING_HOST: datadog
+      TRACING_PORT: 8126
+      TRACING_BATCH_SIZE: 1
+      TRACING_SYNC_THRESHOLD: 10
+    ports:
+      - "4001:80"
+
+  postgres:
+    image: postgres:9.6.3
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  datadog:
+    image: datadog/agent:latest
+    environment:
+      DD_APM_ENABLED: "true"
+      DD_APM_NON_LOCAL_TRAFFIC: "true"
+    env_file:
+      - datadog.env
+
+volumes:
+  postgres-data:

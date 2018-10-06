@@ -11,6 +11,7 @@ config :phoenix_backend, PhoenixBackendWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
+  secret_key_base: "J65s1uZmkX7fCuupiOXZBn3CbE67WcfpJ9nC3JETqIgwdaXIUGs9YnSVQtsZT8qw",
   watchers: []
 
 # ## SSL Support
@@ -35,12 +36,3 @@ config :logger, :console, format: "[$level] $message\n"
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
-
-# Configure your database
-config :phoenix_backend, PhoenixBackend.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "phoenix_backend_dev",
-  hostname: "localhost",
-  pool_size: 10

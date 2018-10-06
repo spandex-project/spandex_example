@@ -44,11 +44,16 @@ defmodule PhoenixBackendWeb.Endpoint do
   configuration should be loaded from the system environment.
   """
   def init(_key, config) do
-    if config[:load_from_system_env] do
-      port = System.get_env("PORT") || raise "expected the PORT environment variable to be set"
-      {:ok, Keyword.put(config, :http, [:inet6, port: port])}
-    else
-      {:ok, config}
-    end
+    env = System.get_env()
+
+    port = env["PORT"] || config[:port]
+    secret_key_base = env["PHOENIX_SECRET"] || config[:secret_key_base]
+
+    config =
+      config
+      |> Keyword.put(:http, [:inet6, port: port])
+      |> Keyword.put(:secret_key_base, secret_key_base)
+
+    {:ok, config}
   end
 end

@@ -34,7 +34,9 @@ defmodule PhoenixBackend.Mixfile do
   defp deps do
     [
       {:cowboy, "~> 1.0"},
+      {:distillery, "~> 2.0"},
       {:gettext, "~> 0.11"},
+      {:httpoison, "~> 1.3"},
       {:phoenix, "~> 1.3.4"},
       {:phoenix_ecto, "~> 3.2"},
       {:phoenix_pubsub, "~> 1.0"},
@@ -52,7 +54,7 @@ defmodule PhoenixBackend.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      "test": ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end

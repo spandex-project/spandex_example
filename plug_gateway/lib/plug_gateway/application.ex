@@ -8,6 +8,7 @@ defmodule PlugGateway.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
+      {SpandexDatadog.ApiServer, spandex_datadog_options()},
       {Plug.Cowboy, scheme: :http, plug: PlugGateway.Router, options: [port: port()]},
       {Finch, name: MyFinch}
     ]
@@ -19,4 +20,16 @@ defmodule PlugGateway.Application do
   end
 
   defp port, do: (System.get_env("PORT") || "4000") |> String.to_integer
+
+  defp spandex_datadog_options do
+    env = System.get_env()
+    config = Application.get_all_env(:spandex_datadog)
+    [
+      host: env["TRACING_HOST"] || config[:host] || "localhost",
+      port: String.to_integer(env["TRACING_PORT"] || config[:port] || "8126"),
+      batch_size: String.to_integer(env["TRACING_BATCH_SIZE"] || config[:batch_size] || "10"),
+      sync_threshold: String.to_integer(env["TRACING_SYNC_THRESHOLD"] || config[:sync_threshold] || "100"),
+      http: config[:http] || HTTPoison
+    ]
+  end
 end

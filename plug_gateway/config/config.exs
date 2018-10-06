@@ -27,7 +27,15 @@ config :logger,
 
 config :logger, :console,
   format: "$dateT$time [$level]$levelpad $metadata $message\n",
-  level: :debug
+  level: :debug,
+  metadata: [:request_id, :trace_id, :span_id]
+
+config :plug_gateway, PlugGateway.Tracer,
+  adapter: SpandexDatadog.Adapter,
+  service: :plug_gateway,
+  type: :web
+
+config :spandex_phoenix, tracer: PlugGateway.Tracer
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment

@@ -1,7 +1,11 @@
 defmodule PlugGateway.Router do
   use Plug.Router
+  use Plug.ErrorHandler
+  use SpandexPhoenix
 
   alias PlugGateway.BackendClient
+
+  require Logger
 
   plug :match
   plug Plug.Parsers, parsers: [:urlencoded, :json],
@@ -25,7 +29,15 @@ defmodule PlugGateway.Router do
     BackendClient.get(backend_api_endpoint() <> "/users")
     |> case do
       {:ok, status_code, body} -> send_resp(conn, status_code, body)
-      {:error, reason} -> send_resp(conn, 502, ~s|{"errors":"#{reason}"}|)
+      {:error, reason} -> send_resp(conn, 502, ~s|{"errors":"#{inspect reason}"}|)
+    end
+  end
+
+  get "/users/:id" do
+    BackendClient.get(backend_api_endpoint() <> "/users/#{id}")
+    |> case do
+      {:ok, status_code, body} -> send_resp(conn, status_code, body)
+      {:error, reason} -> send_resp(conn, 502, ~s|{"errors":"#{inspect reason}"}|)
     end
   end
 
@@ -33,7 +45,7 @@ defmodule PlugGateway.Router do
     BackendClient.get(backend_api_endpoint() <> "/users_n_plus_1")
     |> case do
       {:ok, status_code, body} -> send_resp(conn, status_code, body)
-      {:error, reason} -> send_resp(conn, 502, ~s|{"errors":"#{reason}"}|)
+      {:error, reason} -> send_resp(conn, 502, ~s|{"errors":"#{inspect reason}"}|)
     end
   end
 
@@ -42,4 +54,9 @@ defmodule PlugGateway.Router do
   end
 
   defp backend_api_endpoint, do: System.get_env("BACKEND_API_URL")
+
+  defp handle_errors(conn, %{kind: _kind, reason: reason, stack: _stack}) do
+    Logger.error("Error: #{inspect reason}")
+    send_resp(conn, conn.status, "Internal Server Error")
+  end
 end

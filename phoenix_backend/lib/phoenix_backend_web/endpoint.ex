@@ -1,5 +1,6 @@
 defmodule PhoenixBackendWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :phoenix_backend
+  use SpandexPhoenix
 
   socket "/socket", PhoenixBackendWeb.UserSocket
 

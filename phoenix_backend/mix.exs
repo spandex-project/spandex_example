@@ -41,6 +41,10 @@ defmodule PhoenixBackend.Mixfile do
       {:phoenix_ecto, "~> 3.2"},
       {:phoenix_pubsub, "~> 1.0"},
       {:postgrex, ">= 0.0.0"},
+      {:spandex, "~> 2.3"},
+      {:spandex_datadog, "~> 0.3"},
+      {:spandex_ecto, "~> 0.2"},
+      {:spandex_phoenix, "~> 0.2"},
     ]
   end
 

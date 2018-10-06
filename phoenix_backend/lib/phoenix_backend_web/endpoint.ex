@@ -1,5 +1,6 @@
 defmodule PhoenixBackendWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :phoenix_backend
+  use SpandexPhoenix
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.

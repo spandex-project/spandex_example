@@ -21,10 +21,30 @@ config :phoenix_backend, PhoenixBackendWeb.Endpoint,
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id]
+  metadata: [:request_id, :trace_id, :span_id]
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+# Configure your database
+config :phoenix_backend, PhoenixBackend.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  loggers: [
+    {Ecto.LogEntry, :log, [:info]},
+    {SpandexEcto.EctoLogger, :trace, ["phoenix_backend_repo"]}
+  ]
+
+config :phoenix_backend, PhoenixBackend.Tracer,
+  adapter: SpandexDatadog.Adapter,
+  service: :phoenix_backend,
+  type: :web
+
+config :spandex_ecto, SpandexEcto.EctoLogger,
+  service: :phoenix_backend_ecto,
+  tracer: PhoenixBackend.Tracer,
+  otp_app: :phoenix_backend
+
+config :spandex_phoenix, tracer: PhoenixBackend.Tracer
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

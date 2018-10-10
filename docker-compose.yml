@@ -18,6 +18,8 @@ services:
       - backend
       - datadog
     environment:
+      BACKEND_API_URL: http://backend/api
+      BACKEND_AUTH_TOKEN: "BEAM me up, Spandex!"
       PORT: 80
       TRACING_HOST: datadog
       TRACING_PORT: 8126

@@ -33,6 +33,7 @@ services:
       - postgres
       - datadog
     environment:
+      AUTH_TOKEN: "BEAM me up, Spandex!"
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/phoenix_backend
       PHOENIX_SECRET: "Rma2sZ47QkgKN5hkDjvGSMDhqqOg/olFEs9qMtexSf+UJk0+0n7vA6SAOHBZTaId"
       PORT: 80

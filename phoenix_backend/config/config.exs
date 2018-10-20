@@ -39,6 +39,8 @@ config :phoenix_backend, PhoenixBackend.Tracer,
   service: :phoenix_backend,
   type: :web
 
+config :spandex, :decorators, tracer: PhoenixBackend.Tracer
+
 config :spandex_ecto, SpandexEcto.EctoLogger,
   service: :phoenix_backend_ecto,
   tracer: PhoenixBackend.Tracer,

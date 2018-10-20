@@ -1,5 +1,6 @@
 defmodule PhoenixBackendWeb.Router do
   use PhoenixBackendWeb, :router
+  use Spandex.Decorators
 
   pipeline :api do
     plug :ensure_auth
@@ -31,6 +32,7 @@ defmodule PhoenixBackendWeb.Router do
     end
   end
 
+  @decorate span()
   defp ensure_auth(conn, _opts) do
     token =
       conn
@@ -68,5 +70,6 @@ defmodule PhoenixBackendWeb.Router do
   end
 
   defp extract_token("bearer", token), do: token
+
   defp extract_token(_, _), do: nil
 end

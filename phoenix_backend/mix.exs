@@ -33,7 +33,7 @@ defmodule PhoenixBackend.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:cowboy, "~> 1.0"},
+      {:plug_cowboy, "~> 1.0"},
       {:distillery, "~> 2.0"},
       {:gettext, "~> 0.11"},
       {:httpoison, "~> 1.3"},

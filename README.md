@@ -5,11 +5,20 @@ variety of application scenarios you might see in real life. It also gives us a
 way to easily validate that the right trace and span data is getting sent to
 the supported back-ends.
 
-## Getting Started
+For your convenience, we've created named branches that allow you to easily see
+what's needed to use Spandex to [add tracing to a `Plug.Router`] or [add
+tracing to a `Phoenix.Endpoint`] so that you can get started quickly with
+tracing your own projects.
 
-To get you started quickly, we've arranged the example projects using
-docker-compose.  We run all of the following in a self-contained environment,
-so all you need to have installed is Docker and Docker Compose.
+[add tracing to a `Phoenix.Endpoint`]: https://github.com/spandex-project/spandex_example/compare/base...trace_backend
+[add tracing to a `Plug.Router`]: https://github.com/spandex-project/spandex_example/compare/base...trace_gateway
+
+## Getting Started with This Example Repo
+
+To get you started quickly if you want to try running the examples in this
+repo, we've arranged the example projects using docker-compose.  We run all of
+the following in a self-contained environment, so all you need to have
+installed is Docker and Docker Compose.
 
 * A Cowboy- and Plug-based API gateway service (just to show distributed tracing)
 * A Phoenix-based database-backed application (to show Phoenix and Ecto integration)

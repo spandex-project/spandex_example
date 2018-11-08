@@ -2,6 +2,7 @@ FROM elixir:1.7-alpine as builder
 RUN mix local.hex --force && mix local.rebar --force
 WORKDIR /app
 COPY . /app
+RUN apk add git
 RUN mix deps.get
 RUN MIX_ENV=prod mix release --no-tar
 

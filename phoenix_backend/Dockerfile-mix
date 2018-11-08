@@ -1,5 +1,6 @@
 FROM elixir:1.7-alpine
 
+RUN apk add git
 RUN mix local.hex --force && mix local.rebar --force
 
 WORKDIR /app

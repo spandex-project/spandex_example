@@ -6,7 +6,7 @@ RUN apk add git
 RUN mix deps.get
 RUN MIX_ENV=prod mix release --no-tar
 
-FROM alpine:latest
+FROM alpine:3.9
 RUN apk add bash openssl
 WORKDIR /app
 COPY --from=builder /app/_build/prod/rel/plug_gateway/ .

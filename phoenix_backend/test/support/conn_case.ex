@@ -38,6 +38,10 @@ defmodule PhoenixBackendWeb.ConnCase do
       Ecto.Adapters.SQL.Sandbox.mode(PhoenixBackend.Repo, {:shared, self()})
     end
 
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    expected_token = System.get_env("AUTH_TOKEN")
+    conn = Phoenix.ConnTest.build_conn()
+           |> Plug.Conn.put_req_header("authorization", "Bearer #{expected_token}")
+
+    {:ok, conn: conn}
   end
 end

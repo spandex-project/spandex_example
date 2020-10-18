@@ -36,7 +36,7 @@ defmodule PhoenixBackendWeb.PostControllerTest do
       conn = get(conn, Routes.post_path(conn, :show, id))
 
       assert %{
-               "id" => id,
+               "id" => ^id,
                "title" => "some title"
              } = json_response(conn, 200)["data"]
     end
@@ -57,7 +57,7 @@ defmodule PhoenixBackendWeb.PostControllerTest do
       conn = get(conn, Routes.post_path(conn, :show, id))
 
       assert %{
-               "id" => id,
+               "id" => ^id,
                "title" => "some updated title"
              } = json_response(conn, 200)["data"]
     end

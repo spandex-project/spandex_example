@@ -74,7 +74,7 @@ defmodule PhoenixBackend.Content do
   end
 
   @doc """
-  Deletes a Post.
+  Deletes a post.
 
   ## Examples
 
@@ -95,10 +95,10 @@ defmodule PhoenixBackend.Content do
   ## Examples
 
       iex> change_post(post)
-      %Ecto.Changeset{source: %Post{}}
+      %Ecto.Changeset{data: %Post{}}
 
   """
-  def change_post(%Post{} = post) do
-    Post.changeset(post, %{})
+  def change_post(%Post{} = post, attrs \\ %{}) do
+    Post.changeset(post, attrs)
   end
 end

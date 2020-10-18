@@ -1,5 +1,7 @@
 defmodule PhoenixBackend.Repo do
-  use Ecto.Repo, otp_app: :phoenix_backend
+  use Ecto.Repo,
+    otp_app: :phoenix_backend,
+    adapter: Ecto.Adapters.Postgres
 
   @doc """
   Dynamically loads the repository url from the

@@ -15,7 +15,7 @@ defmodule PhoenixBackendWeb.PostController do
     with {:ok, %Post{} = post} <- Content.create_post(post_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", post_path(conn, :show, post))
+      |> put_resp_header("location", Routes.post_path(conn, :show, post))
       |> render("show.json", post: post)
     end
   end
@@ -35,6 +35,7 @@ defmodule PhoenixBackendWeb.PostController do
 
   def delete(conn, %{"id" => id}) do
     post = Content.get_post!(id)
+
     with {:ok, %Post{}} <- Content.delete_post(post) do
       send_resp(conn, :no_content, "")
     end

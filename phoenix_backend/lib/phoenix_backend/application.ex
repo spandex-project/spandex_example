@@ -1,19 +1,22 @@
 defmodule PhoenixBackend.Application do
-  use Application
-
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
-  def start(_type, _args) do
-    import Supervisor.Spec
+  @moduledoc false
 
-    # Define workers and child supervisors to be supervised
+  use Application
+
+  def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      supervisor(PhoenixBackend.Repo, []),
-      # Start the endpoint when the application starts
-      supervisor(PhoenixBackendWeb.Endpoint, []),
-      # Start your own worker by calling: PhoenixBackend.Worker.start_link(arg1, arg2, arg3)
-      # worker(PhoenixBackend.Worker, [arg1, arg2, arg3]),
+      PhoenixBackend.Repo,
+      # Start the Telemetry supervisor
+      PhoenixBackendWeb.Telemetry,
+      # Start the PubSub system
+      {Phoenix.PubSub, name: PhoenixBackend.PubSub},
+      # Start the Endpoint (http/https)
+      PhoenixBackendWeb.Endpoint
+      # Start a worker by calling: PhoenixBackend.Worker.start_link(arg)
+      # {PhoenixBackend.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

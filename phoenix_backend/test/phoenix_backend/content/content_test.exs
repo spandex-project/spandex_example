@@ -40,8 +40,7 @@ defmodule PhoenixBackend.ContentTest do
 
     test "update_post/2 with valid data updates the post" do
       post = post_fixture()
-      assert {:ok, post} = Content.update_post(post, @update_attrs)
-      assert %Post{} = post
+      assert {:ok, %Post{} = post} = Content.update_post(post, @update_attrs)
       assert post.title == "some updated title"
     end
 

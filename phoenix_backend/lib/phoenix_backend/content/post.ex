@@ -2,7 +2,6 @@ defmodule PhoenixBackend.Content.Post do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "posts" do
     field :title, :string
     field :user_id, :id

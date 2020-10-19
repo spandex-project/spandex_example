@@ -1,6 +1,6 @@
 defmodule PlugGateway.BackendClient do
 
-  def get(url, opts \\ []) do
+  def get(url, _opts \\ []) do
     headers = [{"authorization", "Bearer #{token()}"}]
 
     url

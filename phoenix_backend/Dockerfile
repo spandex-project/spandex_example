@@ -1,12 +1,12 @@
-FROM elixir:1.7-alpine as builder
+FROM elixir:1.10-alpine as builder
 RUN apk add git
 RUN mix local.hex --force && mix local.rebar --force
 WORKDIR /app
 COPY . /app
 RUN mix deps.get
-RUN MIX_ENV=prod mix release --no-tar
+RUN MIX_ENV=prod mix release
 
-FROM alpine:3.9
+FROM alpine:3.11
 RUN apk add bash openssl
 WORKDIR /app
 COPY --from=builder /app/_build/prod/rel/phoenix_backend/ .

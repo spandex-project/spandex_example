@@ -22,11 +22,9 @@ defmodule PlugGateway.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:cowboy, "~> 2.5"},
-      {:distillery, "~> 2.0"},
       {:httpoison, "~> 1.3"},
       {:jason, "~> 1.1"},
-      {:plug, "~> 1.6"}
+      {:plug_cowboy, "~> 2.0"}
     ]
   end
 end

@@ -10,7 +10,7 @@ defmodule PlugGateway.Router do
   plug :dispatch
 
   get "/" do
-    conn = send_resp(conn, 200, "Hello World")
+    send_resp(conn, 200, "Hello World")
   end
 
   get "/flakey" do
@@ -22,21 +22,19 @@ defmodule PlugGateway.Router do
   end
 
   get "/users" do
-    response =
-      BackendClient.get(backend_api_endpoint() <> "/users")
-      |> case do
-        {:ok, status_code, body} -> send_resp(conn, status_code, body)
-        {:error, reason} -> send_resp(conn, 502, ~s|{"errors":"#{reason}"}|)
-      end
+    BackendClient.get(backend_api_endpoint() <> "/users")
+    |> case do
+      {:ok, status_code, body} -> send_resp(conn, status_code, body)
+      {:error, reason} -> send_resp(conn, 502, ~s|{"errors":"#{reason}"}|)
+    end
   end
 
   get "/users_n_plus_1" do
-    response =
-      BackendClient.get(backend_api_endpoint() <> "/users_n_plus_1")
-      |> case do
-        {:ok, status_code, body} -> send_resp(conn, status_code, body)
-        {:error, reason} -> send_resp(conn, 502, ~s|{"errors":"#{reason}"}|)
-      end
+    BackendClient.get(backend_api_endpoint() <> "/users_n_plus_1")
+    |> case do
+      {:ok, status_code, body} -> send_resp(conn, status_code, body)
+      {:error, reason} -> send_resp(conn, 502, ~s|{"errors":"#{reason}"}|)
+    end
   end
 
   match _ do

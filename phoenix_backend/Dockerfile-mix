@@ -1,9 +1,17 @@
 FROM elixir:1.10-alpine
+WORKDIR /app
 
-RUN apk add git
+RUN apk add --no-cache --update build-base git
+
 RUN mix local.hex --force && mix local.rebar --force
 
-WORKDIR /app
-COPY . /app
+ENV MIX_ENV prod
+
+COPY mix.exs /app
+COPY mix.lock /app
+COPY config /app
 RUN mix deps.get
+RUN mix deps.compile
+
+COPY . /app
 RUN mix compile

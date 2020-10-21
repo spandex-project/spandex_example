@@ -3,10 +3,11 @@ defmodule PlugGateway.BackendClient do
   def get(url, _opts \\ []) do
     headers = [{"authorization", "Bearer #{token()}"}]
 
-    url
-    |> HTTPoison.get(headers)
+    :get
+    |> Finch.build(url, headers)
+    |> Finch.request(MyFinch)
     |> case do
-      {:ok, %HTTPoison.Response{status_code: status_code, body: body}} -> {:ok, status_code, body}
+      {:ok, %Finch.Response{status: status, body: body}} -> {:ok, status, body}
       {:error, reason} -> {:error, reason}
     end
   end

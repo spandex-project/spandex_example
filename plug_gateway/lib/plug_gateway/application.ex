@@ -8,7 +8,8 @@ defmodule PlugGateway.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      {Plug.Cowboy, scheme: :http, plug: PlugGateway.Router, options: [port: port()]}
+      {Plug.Cowboy, scheme: :http, plug: PlugGateway.Router, options: [port: port()]},
+      {Finch, name: MyFinch}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

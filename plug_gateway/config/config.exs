@@ -35,6 +35,8 @@ config :plug_gateway, PlugGateway.Tracer,
   service: :plug_gateway,
   type: :web
 
+config :spandex, :decorators, tracer: PlugGateway.Tracer
+
 config :spandex_phoenix, tracer: PlugGateway.Tracer
 
 # It is also possible to import configuration files, relative to this

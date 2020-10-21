@@ -25,10 +25,10 @@ defmodule PlugGateway.MixProject do
       {:decorator, "~> 1.3"},
       {:finch, "~> 0.4"},
       {:jason, "~> 1.1"},
-      {:plug_cowboy, "~> 2.0"},
+      {:plug_cowboy, "~> 2.4"},
       {:spandex, "~> 3.0"},
       {:spandex_datadog, "~> 1.0"},
-      {:spandex_phoenix, "~> 0.4"},
+      {:spandex_phoenix, "~> 1.0"},
       {:telemetry, "~> 0.4"}
     ]
   end

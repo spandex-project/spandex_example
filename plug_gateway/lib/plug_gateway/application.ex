@@ -5,15 +5,25 @@ defmodule PlugGateway.Application do
 
   use Application
 
+  alias PlugGateway.{
+    ContextPropagator,
+    FinchTelemetryHandler,
+    PlugTelemetryHandler,
+    Router,
+    Tracer
+  }
+
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
       {SpandexDatadog.ApiServer, spandex_datadog_options()},
-      {Plug.Cowboy, scheme: :http, plug: PlugGateway.Router, options: [port: port()]},
+      ContextPropagator,
+      {Plug.Cowboy, scheme: :http, plug: Router, options: [port: port()]},
       {Finch, name: MyFinch}
     ]
 
-    PlugGateway.FinchTelemetryHandler.install()
+    FinchTelemetryHandler.install()
+    PlugTelemetryHandler.install()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
@@ -31,7 +41,7 @@ defmodule PlugGateway.Application do
       port: String.to_integer(env["TRACING_PORT"] || config[:port] || "8126"),
       batch_size: String.to_integer(env["TRACING_BATCH_SIZE"] || config[:batch_size] || "10"),
       sync_threshold: String.to_integer(env["TRACING_SYNC_THRESHOLD"] || config[:sync_threshold] || "100"),
-      http: config[:http] || PlugGateway.Tracer
+      http: config[:http] || Tracer
     ]
   end
 end

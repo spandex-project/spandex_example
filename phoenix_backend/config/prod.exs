@@ -11,8 +11,9 @@ use Mix.Config
 # before starting your production server.
 config :phoenix_backend, PhoenixBackendWeb.Endpoint,
   server: true,
-  url: [host: "backend", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  check_origin: false,
+  http: [port: 80],
+  url: [host: "backend", port: 80]
 
 # Do not print debug messages in production
 config :logger, level: :info

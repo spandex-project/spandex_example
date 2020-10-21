@@ -1,15 +1,25 @@
 FROM elixir:1.10-alpine as builder
-RUN apk add git
-RUN mix local.hex --force && mix local.rebar --force
 WORKDIR /app
-COPY . /app
+
+RUN apk add --no-cache --update build-base git
+
+RUN mix local.hex --force && mix local.rebar --force
+
+ENV MIX_ENV prod
+
+COPY mix.exs /app
+COPY mix.lock /app
+COPY config /app
 RUN mix deps.get
-RUN MIX_ENV=prod mix release
+RUN mix deps.compile
+
+COPY . /app
+RUN mix release
 
 FROM alpine:3.11
-RUN apk add bash openssl
+RUN apk add --no-cache --update bash openssl
 WORKDIR /app
 COPY --from=builder /app/_build/prod/rel/phoenix_backend/ .
-CMD bin/phoenix_backend foreground
+CMD bin/phoenix_backend start
 ENV PORT 80
 EXPOSE $PORT

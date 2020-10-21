@@ -27,7 +27,8 @@ defmodule PlugGateway.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:spandex, "~> 3.0"},
       {:spandex_datadog, "~> 1.0"},
-      {:spandex_phoenix, "~> 0.4"}
+      {:spandex_phoenix, "~> 0.4"},
+      {:telemetry, "~> 0.4"}
     ]
   end
 end

@@ -13,6 +13,8 @@ defmodule PlugGateway.Application do
       {Finch, name: MyFinch}
     ]
 
+    PlugGateway.FinchTelemetryHandler.install()
+
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: PlugGateway.Supervisor]
@@ -29,7 +31,7 @@ defmodule PlugGateway.Application do
       port: String.to_integer(env["TRACING_PORT"] || config[:port] || "8126"),
       batch_size: String.to_integer(env["TRACING_BATCH_SIZE"] || config[:batch_size] || "10"),
       sync_threshold: String.to_integer(env["TRACING_SYNC_THRESHOLD"] || config[:sync_threshold] || "100"),
-      http: config[:http] || HTTPoison
+      http: config[:http] || PlugGateway.Tracer
     ]
   end
 end

@@ -22,9 +22,14 @@ defmodule PlugGateway.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:decorator, "~> 1.3"},
       {:finch, "~> 0.4"},
       {:jason, "~> 1.1"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:spandex, "~> 3.0"},
+      {:spandex_datadog, "~> 1.0"},
+      {:spandex_phoenix, "~> 0.4"},
+      {:telemetry, "~> 0.4"}
     ]
   end
 end

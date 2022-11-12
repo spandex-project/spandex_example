@@ -47,7 +47,10 @@ services:
       - "4001:80"
 
   postgres:
-    image: postgres:9.6.3
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
     ports:
       - "5432:5432"
     volumes:

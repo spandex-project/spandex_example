@@ -1,4 +1,4 @@
-FROM elixir:1.10-alpine as builder
+FROM elixir:1.14-alpine as builder
 WORKDIR /app
 
 RUN apk add --no-cache --update build-base git
@@ -16,7 +16,7 @@ RUN mix deps.compile
 COPY . /app
 RUN mix release
 
-FROM alpine:3.11
+FROM elixir:1.14-alpine
 RUN apk add --no-cache --update bash openssl
 WORKDIR /app
 COPY --from=builder /app/_build/prod/rel/plug_gateway/ .
